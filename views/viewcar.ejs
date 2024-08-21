@@ -1,0 +1,78 @@
+<%- include('partials/header') %>
+
+<h1>View This Car</h1>
+<div class="wrapper fadeInDown">
+
+    <!-- <div id="car-map" style="height: 300px;"></div> -->
+
+    <script
+    src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-fjTNDD7A9l4tltZEVLaEN4oPPSIDvE1f7xoS9iW+acglJCNqKq2H1NftKjD5RDFkv6zYkp8WoN6pHxH5ZMrYAQ=="
+    crossorigin=""
+    ></script>
+
+    <div id="formContent">
+        <div class="fadeIn first">
+        <img src="https://cdn.pixabay.com/photo/2014/04/03/10/27/car-310523__340.png" height="120" id="icon" alt="User Icon" />
+        </div>
+
+        <h5 class="fadeIn second">Model: <%=car.model%></h5>
+        <h5 class="fadeIn second">Make: <%=car.make%></h5>
+        <h5 class="fadeIn second">Year: <%=car.year%></h5>
+        <p class="fadeIn third">Number: <%=car.number%></p>
+        <p class="fadeIn third">Rent: INR <%=car.rent%> /day</p>
+        <p id="status" class="fadeIn third">Status:<%=car.status%></p>
+        <p class="fadeIn third">Capacity:<%=car.capacity%></p>
+        <p class="fadeIn third">Fuel Type:<%=car.fueltype%></p>
+        <p class="fadeIn third">Location:<%=car.location%></p>
+        <form action="/agencydashboard" method="post">
+            <input type="hidden" name="carid" value="<%=car._id%>">
+            <button type="submit" class="btn btn-light">Update</button>
+        </form>
+        <form action="/deleteCar" method="post">
+            <input type="hidden" name="carid" value="<%=car._id%>">
+            <button type="submit" class="btn btn-light">Delete</button>
+        </form>
+
+
+    </div>
+</div>
+<a role="button" class="btn btn-primary" href="/userdashboard">Dashboard</a>
+<!-- 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Assuming coordinates is a string in the format "lat,lon"
+        const coordinatesString = document.getElementById('coordinates').value;
+        const status = document.getElementById('status').value;
+    
+        // Split the string into lat and lon
+        const [lat, lon] = coordinatesString.split(',').map(Number);
+    
+        // Debugging: Check the lat and lon values
+        console.log(lat + "," + lon);
+    
+        // Initialize the map centered on the car's location
+        const map = L.map('car-map').setView([lat, lon], 13);
+    
+        // Add the tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+    
+        // Determine the marker color based on the status
+        const markerColor = status === "Booked" ? "green" : "red";
+    
+        // Add the marker to the map
+        const marker = L.circleMarker([lat, lon], {
+            color: markerColor,
+            radius: 10
+        }).addTo(map);
+    
+        // Bind the popup with the correct status
+        marker.bindPopup(`<b>Status:</b> ${status}`).openPopup();
+    });
+</script> -->
+    
+  
+
+<%- include('partials/footer') %>

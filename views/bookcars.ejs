@@ -1,0 +1,80 @@
+<%- include('partials/header') %>
+
+
+<h3>YOU CAN BOOK CARS FROM HERE.</h3>
+
+<!-- Filter Form -->
+<div class="container mb-4">
+  <form action="/bookcars" method="get">
+    <div class="row">
+      <!-- Fuel Type Filter -->
+      <div class="col-md-3">
+        <label for="fuelType">Fuel Type:</label>
+        <select name="fuelType" id="fuelType" class="form-control">
+          <option value="">Any</option>
+          <option value="petrol">Petrol</option>
+          <option value="diesel">Diesel</option>
+          <option value="electric">Electric</option>
+        </select>
+      </div>
+
+      <!-- MMY Filter -->
+      <div class="col-md-3">
+        <label for="mmy">Make/Model/Year:</label>
+        <input type="text" name="mmy" id="mmy" class="form-control" placeholder="e.g. Toyota Corolla 2020">
+      </div>
+
+      <!-- Rent Range Filter -->
+      <div class="col-md-3">
+        <label for="minRent">Min Rent:</label>
+        <input type="number" name="minRent" id="minRent" class="form-control" placeholder="0">
+      </div>
+      <div class="col-md-3">
+        <label for="maxRent">Max Rent:</label>
+        <input type="number" name="maxRent" id="maxRent" class="form-control" placeholder="5000">
+      </div>
+
+      <!-- Submit Button -->
+      <div class="col-md-3 mt-4">
+        <button type="submit" class="btn btn-primary">Filter</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<%if(cars.length == 0){%>
+  <p>Sorry! No cars are available for booking currently.</p>
+<%}%>
+<div class="container">
+  <div class="row">
+    <%cars.forEach(function(car){%>
+    <div class="col-md-3">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Model: <%=car.model%></h5>
+          <p class="card-text">Number: <%=car.number%></p>
+          <p class="card-text">Rent: INR <%=car.rent%> /day</p>
+          <p class="card-text">Status: <%=car.status%></p>
+          <p class="card-text">Capacity: <%=car.capacity%></p>
+          <form class="" action="/bookcars" method="post">
+           <button role="button" type="submit" value="<%=car._id%>" name="book" class="btn btn-primary">Book</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <%});%>
+  </div>
+</div>
+<a role="button" class="btn btn-primary" href="/userdashboard">Dashboard</a>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const message = urlParams.get('message');
+
+  if(message)
+  {
+    setTimeout(function m(){alert(message);}, 200);
+  }
+</script>
+<%- include('partials/footer') %>
